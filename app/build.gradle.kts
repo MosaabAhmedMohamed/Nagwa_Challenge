@@ -98,6 +98,9 @@ dependencies {
     implementation(RETROFIT.RETROFIT_MOSHI_CONVERTER)
     implementation(RX.RETROFIT)
 
+    //GSON
+    implementation(GSON.GSON)
+
     /**
      * room Db
      * */
