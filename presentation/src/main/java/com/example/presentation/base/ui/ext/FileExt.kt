@@ -7,7 +7,7 @@ import java.io.File
 
 fun Fragment.createFolderAndGetPath(): String {
     val folderPath = (requireActivity().getExternalFilesDir(null)?.absolutePath
-        .toString() + File.separator + "Tutorials" + File.separator)
+        .toString() + File.separator + "Files" + File.separator)
 
     if (!File(folderPath).exists()) {
         File(folderPath).mkdir();

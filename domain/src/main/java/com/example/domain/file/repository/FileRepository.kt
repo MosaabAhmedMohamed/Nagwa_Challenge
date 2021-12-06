@@ -7,7 +7,7 @@ import io.reactivex.Single
 
 interface FileRepository {
 
-    fun getFiles(): Flowable<List<FileDomainModel>>
+    fun getFiles(isForceRefresh: Boolean): Flowable<List<FileDomainModel>>
 
     fun downloadFile(
         folderPath: String,

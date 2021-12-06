@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 class GetFilesUseCase @Inject constructor(private val fileRepository: FileRepository) {
 
-    fun getFiles(): Flowable<List<FileDomainModel>> {
-        return fileRepository.getFiles()
+    fun getFiles(isForceRefresh: Boolean): Flowable<List<FileDomainModel>> {
+        return fileRepository.getFiles(isForceRefresh)
     }
 
     fun getFile(id: Int): Single<FileDomainModel> {

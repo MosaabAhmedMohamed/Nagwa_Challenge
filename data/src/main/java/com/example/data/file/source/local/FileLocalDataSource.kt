@@ -1,7 +1,6 @@
 package com.example.data.file.source.local
 
 import android.content.Context
-import android.util.Log
 import com.example.data.file.source.local.dao.FileDao
 import com.example.data.file.source.local.model.FileLocalModel
 import com.example.data.file.source.mapping.mapToDomain
@@ -24,10 +23,10 @@ class FileLocalDataSource @Inject constructor(
 ) {
 
 
-    fun getFiles(): Flowable<List<FileDomainModel>> {
+    fun getFiles(isForceRefresh: Boolean): Flowable<List<FileDomainModel>> {
         return fileDao.getFiles()
             .flatMap {
-                if (it.isEmpty()) {
+                if (it.isEmpty() || isForceRefresh) {
                     handleLoadingFromFileAndCaching()
                 }
                 Flowable.just(it.mapToDomain())

@@ -16,8 +16,8 @@ class FileRepositoryImpl @Inject constructor(
 ) : FileRepository {
 
 
-    override fun getFiles(): Flowable<List<FileDomainModel>> {
-        return fileLocalDataSource.getFiles()
+    override fun getFiles(isForceRefresh: Boolean): Flowable<List<FileDomainModel>> {
+        return fileLocalDataSource.getFiles(isForceRefresh)
     }
 
     override fun downloadFile(

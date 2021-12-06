@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.presentation.base.ViewModelFactory
 import com.example.presentation.base.ui.BaseFragment
 import com.example.presentation.base.ui.ext.*
@@ -49,6 +49,7 @@ class FileFragment : BaseFragment() {
 
     override fun init() {
         initRefresh()
+        observeProgress()
         observeViewState()
         initItemsRv()
         getItems()
@@ -58,6 +59,16 @@ class FileFragment : BaseFragment() {
         binding.refreshSrl.init {
             refreshItems()
         }
+    }
+
+    private fun observeProgress() {
+        fileViewModel.downloadProgressLD.observe(viewLifecycleOwner, {
+            if (it == 100) {
+
+            } else {
+               // binding.tvCurrentProgress.text = it.toString()
+            }
+        })
     }
 
     private fun observeViewState() {
@@ -96,7 +107,7 @@ class FileFragment : BaseFragment() {
     }
 
     private fun initItemsRv() {
-        binding.listRv.layoutManager = LinearLayoutManager(requireContext())
+        binding.listRv.layoutManager = GridLayoutManager(requireContext(),2)
         binding.listRv.adapter = itemListAdapter
     }
 
@@ -137,19 +148,19 @@ class FileFragment : BaseFragment() {
     }
 
     private fun retryDownload() {
-       /* fileViewModel.tutorialSelectedItem?.let { tutorialUIModel ->
+        fileViewModel.fileSelectedItem?.let { tutorialUIModel ->
             tutorialUIModel.url?.let {
                 download(it, tutorialUIModel.name, tutorialUIModel.id)
             }
-        }*/
+        }
     }
 
     private fun download(downloadUrl: String, name: String?, itemId: Int?) {
-      /*  if (downloadUrl.isNotEmpty()) {
+        if (downloadUrl.isNotEmpty()) {
             fileViewModel.downloadFile(createFolderAndGetPath(), downloadUrl, name, itemId){
-                showProgressDialog()
+             //   showProgressDialog()
             }
-        }*/
+        }
     }
 
 
@@ -158,7 +169,7 @@ class FileFragment : BaseFragment() {
     }
 
     private fun refreshItems() {
-       // fileViewModel.getFiles(true)
+        fileViewModel.getFiles(true)
     }
 
     private fun showItemsViews(show: Boolean) {
@@ -168,7 +179,6 @@ class FileFragment : BaseFragment() {
     override fun onViewClicked() {
         super.onViewClicked()
         binding.errMessageRootView.setOnClickListener {
-            getItems()
         }
     }
 
