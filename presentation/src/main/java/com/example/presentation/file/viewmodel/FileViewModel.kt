@@ -6,6 +6,7 @@ import com.example.domain.file.usecase.GetFilesUseCase
 import com.example.presentation.base.BaseViewModel
 import com.example.presentation.base.SchedulerProvider
 import com.example.presentation.file.mapping.mapToUIModel
+import com.example.presentation.file.model.FileUiModel
 import com.example.presentation.file.viewstate.FilesViewState
 import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
@@ -14,6 +15,9 @@ class FileViewModel @Inject constructor(
     private val getFilesUseCase: GetFilesUseCase,
     private val schedulerProvider: SchedulerProvider
 ) : BaseViewModel() {
+
+
+    var fileSelectedItem: FileUiModel? = null
 
 
     private val filesViewStateLDPrivate by lazy { MutableLiveData<FilesViewState>() }

@@ -2,7 +2,7 @@ package com.example.nagwa_challenge.di
 
 
 import com.example.nagwa_challenge.NavHostActivity
-import com.example.nagwa_challenge.di.tags.TagsFragmentBuilderModule
+import com.example.nagwa_challenge.di.files.FileFragmentBuilderModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -12,7 +12,7 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(
         modules = [
-            TagsFragmentBuilderModule::class
+            FileFragmentBuilderModule::class
         ]
     )
     abstract fun provideNavHostActivity(): NavHostActivity
