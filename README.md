@@ -109,15 +109,15 @@ Then ViewModel starts to delegate the event to it's suitable UseCase with thread
 ```
 As the UseCase process and get the required models form the repository it returns the result back to the ViewModel to start Exposing it as LiveData to our Lifecycle Owner (Activity)
 ```
-    override val _viewState = MutableLiveData<Event<ItemListViewState>>()
+    override val _viewState = MutableLiveData<Event<FilesViewState>>()
 
 ```
 ```
                .subscribe({
-                    filesViewStateLDPrivate.value = ItemListViewState.onSuccess(it.products.mapToUiModels())
+                    filesViewStateLDPrivate.value = FilesViewState.onSuccess(it.products.mapToUiModels())
                 }
             }, {
-                filesViewStateLDPrivate.value = ItemListViewState.onError(it)
+                filesViewStateLDPrivate.value = FilesViewState.onError(it)
             })
 ```
 
