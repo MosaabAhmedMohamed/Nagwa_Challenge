@@ -82,11 +82,11 @@ cleaner and more readable and handy when creating dependecies.
 This design creates a consistent and pleasant user experience. Regardless of whether the user comes back to the app several minutes after they've last closed it or several days later, they instantly see a user's information that the app persists locally. If this data is stale, the app's repository module starts updating the data in the background.
 * Using to best of managing ViewState with less complex tools , using Sealed Classes and LiveData we created a solid source that we can expose to view to show what the app can do to the user without worrying about the side effects
 ```
-sealed class ItemListViewState {
-    object Loading : ItemListViewState()
-    object onEmptyState : ItemListViewState()
-    data class onSuccess(val result: List<ItemUiModel>) : ItemListViewState()
-    data class onError(val error: Throwable) : ItemListViewState()
+sealed class FilesViewState {
+    object Loading : FilesViewState()
+    object onEmptyState : FilesViewState()
+    data class onSuccess(val result: List<ItemUiModel>) : FilesViewState()
+    data class onError(val error: Throwable) : FilesViewState()
 
 }
 ```
