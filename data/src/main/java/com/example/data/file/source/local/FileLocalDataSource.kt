@@ -1,7 +1,6 @@
 package com.example.data.file.source.local
 
 import android.content.Context
-import android.util.Log
 import com.example.data.file.source.local.dao.FileDao
 import com.example.data.file.source.local.model.FileLocalModel
 import com.example.data.file.source.mapping.mapToDomain
@@ -11,6 +10,7 @@ import com.google.gson.reflect.TypeToken
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import java.io.IOException
 import java.io.InputStream
 import java.lang.reflect.Type
@@ -22,7 +22,6 @@ class FileLocalDataSource @Inject constructor(
     private val fileDao: FileDao,
     private val gson: Gson
 ) {
-
 
     fun getFiles(isForceRefresh: Boolean): Flowable<List<FileDomainModel>> {
         return fileDao.getFiles()
@@ -37,12 +36,8 @@ class FileLocalDataSource @Inject constructor(
     private fun handleLoadingFromFileAndCaching() {
         handleJsonString().flatMap {
             cacheFiles(mapJsonStringToListOfFile(it))
-            Log.d("testTAG", "handleLoadingFromFileAndCaching: ${mapJsonStringToListOfFile(it)}")
-
             Observable.just(true)
-        }.subscribe({},{
-            Log.d("testTAG", "handleLoadingFromFileAndCaching: ${it.localizedMessage}")
-        })
+        }.subscribe()
     }
 
     private fun cacheFiles(files: List<FileLocalModel>) = fileDao.cacheFiles(files)
@@ -68,13 +63,13 @@ class FileLocalDataSource @Inject constructor(
 
     private fun mapJsonStringToListOfFile(jsonString: String): List<FileLocalModel> {
         val listOfFilesType: Type = object : TypeToken<List<FileLocalModel?>>() {}.type
-        Log.d("testTAG", "handleLoadingFromFileAndCaching: ${jsonString}")
-
         return gson.fromJson(jsonString, listOfFilesType)
     }
 
     fun updateFileInLocal(file: FileLocalModel) {
         fileDao.insertFile(file)
+            .subscribeOn(Schedulers.io())
+            .subscribe()
     }
 
     fun getFile(id: Int): Single<FileDomainModel> {

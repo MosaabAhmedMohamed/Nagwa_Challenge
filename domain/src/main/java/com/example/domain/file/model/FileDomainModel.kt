@@ -9,6 +9,5 @@ data class FileDomainModel(
     val url: String?,
     val name: String?,
     var localPath: String?,
-    var isDownloaded: Boolean = false,
     var downloadStatus: DownloadStatus = DownloadStatus.NON,
 )

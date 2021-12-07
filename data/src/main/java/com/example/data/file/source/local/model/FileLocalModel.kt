@@ -37,10 +37,7 @@ data class FileLocalModel(
     @ColumnInfo(name = "localPath")
     var localPath: String?,
 
-    @ColumnInfo(name = "isDownloaded")
-    var isDownloaded: Boolean = false,
-
     @ColumnInfo(name = "DownloadStatus")
     @TypeConverters(FileModelConverter::class)
-    var downloadStatus: DownloadStatus?
+    var downloadStatus: DownloadStatus = DownloadStatus.NON
 )

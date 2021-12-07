@@ -15,7 +15,6 @@ fun FileLocalModel.mapToDomain(): FileDomainModel {
         this.url,
         this.name,
         this.localPath,
-        this.isDownloaded,
         this.downloadStatus?:DownloadStatus.NON
     )
 }
@@ -23,5 +22,5 @@ fun FileLocalModel.mapToDomain(): FileDomainModel {
 
 fun FileDomainModel.mapToLocal(): FileLocalModel {
 
-    return FileLocalModel(id, type, url, name, localPath, isDownloaded, downloadStatus)
+    return FileLocalModel(id, type, url, name, localPath, downloadStatus)
 }

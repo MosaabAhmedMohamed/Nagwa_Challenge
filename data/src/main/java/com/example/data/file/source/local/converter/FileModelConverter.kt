@@ -6,18 +6,16 @@ import com.example.core.model.DownloadStatus
 class FileModelConverter {
 
     @TypeConverter
-    fun getDownloadStatus(string: String?): DownloadStatus? {
+    fun getDownloadStatus(string: String?): DownloadStatus {
         return try {
-            if (string != null)
-                DownloadStatus.valueOf(string)
-            else null
+            string?.let { DownloadStatus.valueOf(string) } ?: DownloadStatus.NON
         } catch (ex: Exception) {
-            null
+            DownloadStatus.NON
         }
     }
 
     @TypeConverter
-    fun downloadStatusString(accountStatus: DownloadStatus?): String? {
-        return accountStatus?.name
+    fun downloadStatusString(accountStatus: DownloadStatus?): String {
+        return accountStatus?.name ?: DownloadStatus.NON.name
     }
 }

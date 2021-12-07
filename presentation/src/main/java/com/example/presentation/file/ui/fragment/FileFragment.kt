@@ -49,7 +49,6 @@ class FileFragment : BaseFragment() {
 
     override fun init() {
         initRefresh()
-        observeProgress()
         observeViewState()
         initItemsRv()
         getItems()
@@ -59,16 +58,6 @@ class FileFragment : BaseFragment() {
         binding.refreshSrl.init {
             refreshItems()
         }
-    }
-
-    private fun observeProgress() {
-        fileViewModel.downloadProgressLD.observe(viewLifecycleOwner, {
-            if (it == 100) {
-
-            } else {
-               // binding.tvCurrentProgress.text = it.toString()
-            }
-        })
     }
 
     private fun observeViewState() {
@@ -157,9 +146,7 @@ class FileFragment : BaseFragment() {
 
     private fun download(downloadUrl: String, name: String?, itemId: Int?) {
         if (downloadUrl.isNotEmpty()) {
-            fileViewModel.downloadFile(createFolderAndGetPath(), downloadUrl, name, itemId){
-             //   showProgressDialog()
-            }
+            fileViewModel.downloadFile(createFolderAndGetPath(), downloadUrl, name, itemId)
         }
     }
 
@@ -179,6 +166,7 @@ class FileFragment : BaseFragment() {
     override fun onViewClicked() {
         super.onViewClicked()
         binding.errMessageRootView.setOnClickListener {
+            refreshItems()
         }
     }
 

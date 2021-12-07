@@ -16,7 +16,7 @@
     </style>
 
     <style name="circuralProgressBarStyle" parent="Widget.AppCompat.ProgressBar">
-        <item name="android:indeterminateTint">@color/purple_700</item>
+        <item name="android:indeterminateTint">@color/purple_200</item>
         <item name="android:indeterminateTintMode">src_atop</item>
         <item name="android:max">100</item>
         <item name="android:progress">65</item>

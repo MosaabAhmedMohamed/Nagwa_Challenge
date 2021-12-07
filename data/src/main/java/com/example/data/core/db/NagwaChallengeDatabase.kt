@@ -18,5 +18,5 @@ abstract class NagwaChallengeDatabase : RoomDatabase() {
 
 }
 
-const val NAGWA_Challenge_DATABASE_VERSION_NUMBER = 7
+const val NAGWA_Challenge_DATABASE_VERSION_NUMBER = 9
 

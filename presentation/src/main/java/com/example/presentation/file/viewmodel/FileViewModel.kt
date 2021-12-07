@@ -3,12 +3,14 @@ package com.example.presentation.file.viewmodel
 import android.app.DownloadManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.core.model.DownloadStatus
 import com.example.domain.file.usecase.DownloadFileUseCase
 import com.example.domain.file.usecase.GetFilesUseCase
 import com.example.domain.file.usecase.UpdateFileUseCase
 import com.example.presentation.base.BaseViewModel
 import com.example.presentation.base.DownloadStateRetriever
 import com.example.presentation.base.SchedulerProvider
+import com.example.presentation.file.mapping.mapToDomain
 import com.example.presentation.file.mapping.mapToUIModel
 import com.example.presentation.file.model.FileUiModel
 import com.example.presentation.file.viewstate.FilesViewState
@@ -27,9 +29,6 @@ class FileViewModel @Inject constructor(
 
     private val filesViewStateLDPrivate by lazy { MutableLiveData<FilesViewState>() }
     val filesViewStateLD: LiveData<FilesViewState> get() = filesViewStateLDPrivate
-
-    private val downloadProgressLDPrivate by lazy { MutableLiveData<Int>() }
-    val downloadProgressLD get() = downloadProgressLDPrivate
 
     fun getFiles(isForceRefresh:Boolean = false) {
         getFilesUseCase.getFiles(isForceRefresh)
@@ -50,15 +49,16 @@ class FileViewModel @Inject constructor(
         folderPath: String,
         downloadUrl: String,
         name: String?,
-        itemId: Int?,
-        onStartDownloading: () -> Unit
+        itemId: Int?
     ) {
+        updateFileUseCase.updateFileDownloadStatus(fileSelectedItem?.mapToDomain(),DownloadStatus.PENDING)
         val downloadInfo = downloadFileUseCase.downloadFile(folderPath, downloadUrl, name)
         if (downloadInfo.first != null && downloadInfo.second != null) {
+            updateFileUseCase.updateFileDownloadStatus(fileSelectedItem?.mapToDomain(),DownloadStatus.DOWNLOADING)
             checkDownloadProgress(downloadInfo.first!!, downloadInfo.second!!, itemId, folderPath)
-            onStartDownloading.invoke()
         }
     }
+
 
     private fun checkDownloadProgress(
         dm: DownloadManager,
@@ -74,9 +74,8 @@ class FileViewModel @Inject constructor(
                     checkIfDownloadCompleted(it.first, it.second, folderPath)
                     return@flatMap Observable.just(it)
                 }.observeOn(schedulerProvider.ui())
-                .subscribe { progressData ->
-                    downloadProgressLD.value = progressData.second
-                }.addTo(compositeDisposable)
+                .subscribe()
+                .addTo(compositeDisposable)
         }
     }
 
@@ -84,10 +83,10 @@ class FileViewModel @Inject constructor(
         if (progress == 100) {
             getFilesUseCase.getFile(itemId)
                 .subscribeOn(schedulerProvider.io())
-                .subscribe { tutorial ->
-                    updateFileUseCase.updateFileDownloadStatus(
-                        tutorial,
-                        "$folderPath/${tutorial.name}"
+                .subscribe { file ->
+                    updateFileUseCase.updateFileDownloadDownloadedStatus(
+                        file,
+                        "$folderPath/${file.name}"
                     )
                 }
                 .addTo(compositeDisposable)

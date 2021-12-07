@@ -3,6 +3,7 @@ package com.example.presentation.file.ui.adapter
 import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.core.model.DownloadStatus
 import com.example.presentation.base.ui.BaseViewHolder
 import com.example.presentation.file.model.FileType
 import com.example.presentation.file.model.FileUiModel
@@ -74,16 +75,27 @@ class FilesAdapter(
     override fun getItemViewType(position: Int): Int {
         val item = tutorials[position]
         return when (item?.type) {
-            FileType.PDF -> getPDFViewType(item.isDownloaded)
-            else -> getVIDEOViewType(item?.isDownloaded ?: false)
+            FileType.PDF -> getPDFViewType(item.downloadStatus)
+            else -> getVIDEOViewType(item?.downloadStatus?:DownloadStatus.NON)
         }
     }
 
-    private fun getPDFViewType(downloaded: Boolean) =
-        if (downloaded) PDF_DOWNLOADED_VIEW else PDF_DOWNLOAD_VIEW
+    private fun getPDFViewType(downloadStatus: DownloadStatus) =
+        when(downloadStatus){
+            DownloadStatus.NON -> PDF_DOWNLOAD_VIEW
+            DownloadStatus.DOWNLOADING -> PDF_DOWNLOADING_VIEW
+            DownloadStatus.PENDING -> PDF_DOWNLOAD_VIEW
+            DownloadStatus.DOWNLOADED -> PDF_DOWNLOADED_VIEW
+        }
 
-    private fun getVIDEOViewType(downloaded: Boolean) =
-        if (downloaded) VIDEO_DOWNLOADED_VIEW else VIDEO_DOWNLOAD_VIEW
+    private fun getVIDEOViewType(downloadStatus: DownloadStatus) =
+        when(downloadStatus){
+            DownloadStatus.NON -> VIDEO_DOWNLOAD_VIEW
+            DownloadStatus.DOWNLOADING -> VIDEO_DOWNLOADING_VIEW
+            DownloadStatus.PENDING -> VIDEO_DOWNLOAD_VIEW
+            DownloadStatus.DOWNLOADED -> VIDEO_DOWNLOADED_VIEW
+        }
+
 
     companion object {
         const val PDF_DOWNLOADED_VIEW = 1

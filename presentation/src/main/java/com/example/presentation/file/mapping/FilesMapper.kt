@@ -20,5 +20,16 @@ fun FileDomainModel.mapFileType(): FileType {
 }
 
 fun FileDomainModel.mapToUIModel(fileType: FileType): FileUiModel {
-    return FileUiModel(id, fileType, url, name, localPath, isDownloaded,downloadStatus)
+    return FileUiModel(id, fileType, url, name, localPath, downloadStatus)
+}
+
+fun FileType.mapToString(): String {
+    return when (this) {
+        FileType.PDF -> "PDF"
+        else -> "VIDEO"
+    }
+}
+
+fun FileUiModel.mapToDomain(): FileDomainModel {
+    return FileDomainModel(id,type?.mapToString() , url, name, localPath,  downloadStatus)
 }
