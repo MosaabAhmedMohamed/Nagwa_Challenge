@@ -1,7 +1,7 @@
 ## Nagwa_Challenge
 
 a simple mobile application to display
-a list of videos and books to download and play or open it.
+a list of videos and books to be downloaded and played or opened it.
 
 ## Challenge description
  - find fake responses for the list of videos and books in the attachments.
