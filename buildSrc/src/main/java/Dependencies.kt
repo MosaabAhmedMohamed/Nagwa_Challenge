@@ -30,6 +30,7 @@ object Versions {
     const val PAGING_3 = "3.0.1"
     const val NAVIGATION="2.3.5"
     const val GLIDE = "4.12.0"
+    const val GSON = "2.8.6"
 
 }
 
@@ -113,6 +114,10 @@ object NAVIGATION {
 object GLIDE {
     const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
     const val GLIDE_ANO = "com.github.bumptech.glide:compiler:${Versions.GLIDE}"
+}
+
+object GSON{
+    const val GSON = "com.google.code.gson:gson:${Versions.GSON}"
 }
 
 
