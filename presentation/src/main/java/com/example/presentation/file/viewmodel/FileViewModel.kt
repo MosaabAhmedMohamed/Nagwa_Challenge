@@ -84,7 +84,7 @@ class FileViewModel @Inject constructor(
             getFilesUseCase.getFile(itemId)
                 .subscribeOn(schedulerProvider.io())
                 .subscribe { file ->
-                    updateFileUseCase.updateFileDownloadDownloadedStatus(
+                    updateFileUseCase.updateFileDownloadedStatus(
                         file,
                         "$folderPath/${file.name}"
                     )

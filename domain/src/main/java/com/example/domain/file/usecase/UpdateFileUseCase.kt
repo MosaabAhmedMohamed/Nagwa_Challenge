@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class UpdateFileUseCase @Inject constructor(private val fileRepository: FileRepository) {
 
-    fun updateFileDownloadDownloadedStatus(
+    fun updateFileDownloadedStatus(
         file: FileDomainModel?,
         folderPath: String
     ) {

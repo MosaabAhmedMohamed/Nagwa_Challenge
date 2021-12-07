@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import com.example.core.test.util.TestingException
-import com.example.data.factory.FilesFactory
 import com.example.data.factory.FilesFactory.generateDummyFilesLocalModels
 import com.example.data.file.repository.FileRepositoryImpl
 import com.example.data.file.source.local.FileLocalDataSource
