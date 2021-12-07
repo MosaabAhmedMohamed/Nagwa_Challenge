@@ -94,7 +94,11 @@ dependencies {
     implementation(RETROFIT.RETROFIT)
     implementation(LOGGING_INTERCEPTORS.LOGGING_INTERCEPTORS)
     implementation(RETROFIT.RETROFIT_MOSHI_CONVERTER)
+    implementation(RETROFIT.RETROFIT_JSON_CONVERTER)
     implementation(RX.RETROFIT)
+
+    //GSON
+    implementation(GSON.GSON)
 
     /**
      * room Db
