@@ -1,6 +1,7 @@
 package com.example.data.file.source.local
 
 import android.content.Context
+import androidx.room.Transaction
 import com.example.data.file.source.local.dao.FileDao
 import com.example.data.file.source.local.model.FileLocalModel
 import com.example.data.file.source.mapping.mapToDomain
@@ -40,7 +41,10 @@ class FileLocalDataSource @Inject constructor(
         }.subscribe()
     }
 
-    private fun cacheFiles(files: List<FileLocalModel>) = fileDao.cacheFiles(files)
+    fun cacheFiles(files: List<FileLocalModel>) {
+        fileDao.deleteAllFiles().subscribe()
+        fileDao.insertFiles(files).subscribe()
+    }
 
     private fun loadFromFile(): ByteArray {
         val inputStream: InputStream = context.assets.open("getListOfFilesResponse.json")

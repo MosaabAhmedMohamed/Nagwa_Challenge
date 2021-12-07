@@ -10,7 +10,7 @@ import io.reactivex.Single
 interface FileDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFiles(files: List<FileLocalModel>)
+    fun insertFiles(files: List<FileLocalModel>): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFile(file: FileLocalModel): Completable
@@ -22,12 +22,6 @@ interface FileDao {
     fun getFile(fileId: Int): Single<FileLocalModel>
 
     @Query("delete from FileLocalModel")
-    fun deleteAllFiles()
-
-    @Transaction
-    fun cacheFiles(files: List<FileLocalModel>) {
-        deleteAllFiles()
-        insertFiles(files)
-    }
+    fun deleteAllFiles(): Completable
 
 }
