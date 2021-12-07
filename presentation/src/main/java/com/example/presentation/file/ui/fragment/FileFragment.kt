@@ -51,7 +51,6 @@ class FileFragment : BaseFragment() {
         initRefresh()
         observeViewState()
         initItemsRv()
-        getItems()
     }
 
     private fun initRefresh() {
@@ -148,11 +147,6 @@ class FileFragment : BaseFragment() {
         if (downloadUrl.isNotEmpty()) {
             fileViewModel.downloadFile(createFolderAndGetPath(), downloadUrl, name, itemId)
         }
-    }
-
-
-    private fun getItems() {
-        fileViewModel.getFiles()
     }
 
     private fun refreshItems() {

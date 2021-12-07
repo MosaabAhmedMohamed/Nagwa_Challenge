@@ -20,7 +20,7 @@ fun FileDomainModel.mapFileType(): FileType {
 }
 
 fun FileDomainModel.mapToUIModel(fileType: FileType): FileUiModel {
-    return FileUiModel(id, fileType, url, name, localPath, downloadStatus)
+    return FileUiModel(id, fileType, url, name, localPath, downloadStatus, downloadTriesCount)
 }
 
 fun FileType.mapToString(): String {
@@ -31,5 +31,13 @@ fun FileType.mapToString(): String {
 }
 
 fun FileUiModel.mapToDomain(): FileDomainModel {
-    return FileDomainModel(id,type?.mapToString() , url, name, localPath,  downloadStatus)
+    return FileDomainModel(
+        id,
+        type?.mapToString(),
+        url,
+        name,
+        localPath,
+        downloadStatus,
+        downloadTriesCount
+    )
 }

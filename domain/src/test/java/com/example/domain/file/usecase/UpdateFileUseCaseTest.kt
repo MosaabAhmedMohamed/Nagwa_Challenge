@@ -26,19 +26,6 @@ class UpdateFileUseCaseTest {
         useCase = UpdateFileUseCase(fileRepository)
     }
 
-    @Test
-    fun updateFileDownloadedStatus_call_repository() {
-        // Arrange
-        // No Arrangement for this test case
-        val model = generateFileModel()
-
-        // Act
-        useCase.updateFileDownloadedStatus(model, "")
-
-        // Assert
-        Mockito.verify(fileRepository).updateFileInLocal(model)
-    }
-
 
     @Test
     fun updateFileDownloadStatus_call_repository() {
@@ -47,7 +34,7 @@ class UpdateFileUseCaseTest {
         val model = generateFileModel()
 
         // Act
-        useCase.updateFileDownloadStatus(model, DownloadStatus.DOWNLOADING)
+        useCase.updateFileDownloadStatus(model, DownloadStatus.DOWNLOADING,"")
 
         // Assert
         Mockito.verify(fileRepository).updateFileInLocal(model)

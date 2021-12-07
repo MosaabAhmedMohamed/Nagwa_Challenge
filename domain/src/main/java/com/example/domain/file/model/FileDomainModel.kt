@@ -10,4 +10,5 @@ data class FileDomainModel(
     val name: String?,
     var localPath: String?,
     var downloadStatus: DownloadStatus = DownloadStatus.NON,
+    var downloadTriesCount: Int = 0
 )

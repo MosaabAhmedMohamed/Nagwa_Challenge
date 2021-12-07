@@ -21,7 +21,6 @@ class FileDownloadDataSource @Inject constructor(private val context: Context) {
             val dm = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
             val opId = dm.enqueue(req);
             Pair(dm, opId)
-
         } catch (e: IllegalArgumentException) {
             Pair(null, null)
         }

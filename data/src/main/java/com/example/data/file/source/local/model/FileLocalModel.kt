@@ -39,5 +39,8 @@ data class FileLocalModel(
 
     @ColumnInfo(name = "DownloadStatus")
     @TypeConverters(FileModelConverter::class)
-    var downloadStatus: DownloadStatus = DownloadStatus.NON
+    var downloadStatus: DownloadStatus = DownloadStatus.NON,
+
+    @ColumnInfo(name = "DownloadTriesCount")
+    var downloadTriesCount: Int = 0
 )

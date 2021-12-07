@@ -1,5 +1,5 @@
 package com.example.core.model
 
 enum class DownloadStatus {
-    NON, DOWNLOADING, PENDING, DOWNLOADED
+    NON, DOWNLOADING, PENDING, DOWNLOADED, FAILED
 }

@@ -86,6 +86,7 @@ class FilesAdapter(
             DownloadStatus.DOWNLOADING -> PDF_DOWNLOADING_VIEW
             DownloadStatus.PENDING -> PDF_DOWNLOAD_VIEW
             DownloadStatus.DOWNLOADED -> PDF_DOWNLOADED_VIEW
+            DownloadStatus.FAILED -> PDF_DOWNLOAD_VIEW
         }
 
     private fun getVIDEOViewType(downloadStatus: DownloadStatus) =
@@ -94,6 +95,7 @@ class FilesAdapter(
             DownloadStatus.DOWNLOADING -> VIDEO_DOWNLOADING_VIEW
             DownloadStatus.PENDING -> VIDEO_DOWNLOAD_VIEW
             DownloadStatus.DOWNLOADED -> VIDEO_DOWNLOADED_VIEW
+            DownloadStatus.FAILED ->  VIDEO_DOWNLOAD_VIEW
         }
 
 

@@ -8,5 +8,6 @@ data class FileUiModel(
     val url: String?,
     val name: String?,
     var localPath: String?,
-    var downloadStatus: DownloadStatus = DownloadStatus.NON
+    var downloadStatus: DownloadStatus = DownloadStatus.NON,
+    var downloadTriesCount: Int = 0
 )

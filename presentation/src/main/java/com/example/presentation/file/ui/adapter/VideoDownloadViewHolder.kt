@@ -1,6 +1,5 @@
 package com.example.presentation.file.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.presentation.R
@@ -12,7 +11,6 @@ class VideoDownloadViewHolder(private val binding : ItemVideoDownloadBinding)
     : BaseViewHolder<FileUiModel?>(binding.root) {
 
     override fun onBind(item: FileUiModel?) {
-        Log.d("testTAG", "onBind: ${item.toString()}")
         binding.tvTitle.text = item?.name
     }
 
