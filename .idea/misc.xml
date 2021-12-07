@@ -12,10 +12,11 @@
         <entry key="presentation/src/main/res/layout/item_error_message.xml" value="0.1" />
         <entry key="presentation/src/main/res/layout/item_loading.xml" value="0.1" />
         <entry key="presentation/src/main/res/layout/item_pdf_download.xml" value="0.1" />
-        <entry key="presentation/src/main/res/layout/item_pdf_downloaded.xml" value="0.26132246376811596" />
-        <entry key="presentation/src/main/res/layout/item_pdf_downloading.xml" value="0.26132246376811596" />
+        <entry key="presentation/src/main/res/layout/item_pdf_downloaded.xml" value="0.15849056603773584" />
+        <entry key="presentation/src/main/res/layout/item_pdf_downloading.xml" value="0.15849056603773584" />
         <entry key="presentation/src/main/res/layout/item_video_download.xml" value="0.1" />
-        <entry key="presentation/src/main/res/layout/item_video_downloading.xml" value="0.26132246376811596" />
+        <entry key="presentation/src/main/res/layout/item_video_downloaded.xml" value="0.1" />
+        <entry key="presentation/src/main/res/layout/item_video_downloading.xml" value="0.15849056603773584" />
       </map>
     </option>
   </component>

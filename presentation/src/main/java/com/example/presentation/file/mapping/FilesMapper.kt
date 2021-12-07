@@ -20,5 +20,5 @@ fun FileDomainModel.mapFileType(): FileType {
 }
 
 fun FileDomainModel.mapToUIModel(fileType: FileType): FileUiModel {
-    return FileUiModel(id, fileType, url, name, localPath, isDownloaded)
+    return FileUiModel(id, fileType, url, name, localPath, isDownloaded,downloadStatus)
 }

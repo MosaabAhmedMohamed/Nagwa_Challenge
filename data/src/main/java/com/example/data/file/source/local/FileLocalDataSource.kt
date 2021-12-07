@@ -1,6 +1,7 @@
 package com.example.data.file.source.local
 
 import android.content.Context
+import android.util.Log
 import com.example.data.file.source.local.dao.FileDao
 import com.example.data.file.source.local.model.FileLocalModel
 import com.example.data.file.source.mapping.mapToDomain
@@ -36,8 +37,12 @@ class FileLocalDataSource @Inject constructor(
     private fun handleLoadingFromFileAndCaching() {
         handleJsonString().flatMap {
             cacheFiles(mapJsonStringToListOfFile(it))
+            Log.d("testTAG", "handleLoadingFromFileAndCaching: ${mapJsonStringToListOfFile(it)}")
+
             Observable.just(true)
-        }.subscribe()
+        }.subscribe({},{
+            Log.d("testTAG", "handleLoadingFromFileAndCaching: ${it.localizedMessage}")
+        })
     }
 
     private fun cacheFiles(files: List<FileLocalModel>) = fileDao.cacheFiles(files)
@@ -63,6 +68,8 @@ class FileLocalDataSource @Inject constructor(
 
     private fun mapJsonStringToListOfFile(jsonString: String): List<FileLocalModel> {
         val listOfFilesType: Type = object : TypeToken<List<FileLocalModel?>>() {}.type
+        Log.d("testTAG", "handleLoadingFromFileAndCaching: ${jsonString}")
+
         return gson.fromJson(jsonString, listOfFilesType)
     }
 

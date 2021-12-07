@@ -1,5 +1,7 @@
 package com.example.domain.file.model
 
+import com.example.core.model.DownloadStatus
+
 
 data class FileDomainModel(
     val id: Int? = 0,
@@ -8,4 +10,5 @@ data class FileDomainModel(
     val name: String?,
     var localPath: String?,
     var isDownloaded: Boolean = false,
+    var downloadStatus: DownloadStatus = DownloadStatus.NON,
 )

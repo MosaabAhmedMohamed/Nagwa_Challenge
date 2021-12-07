@@ -3,6 +3,9 @@ package com.example.data.file.source.local.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.example.core.model.DownloadStatus
+import com.example.data.file.source.local.converter.FileModelConverter
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -36,4 +39,8 @@ data class FileLocalModel(
 
     @ColumnInfo(name = "isDownloaded")
     var isDownloaded: Boolean = false,
+
+    @ColumnInfo(name = "DownloadStatus")
+    @TypeConverters(FileModelConverter::class)
+    var downloadStatus: DownloadStatus?
 )

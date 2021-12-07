@@ -3,6 +3,7 @@ package com.example.presentation.file.ui.adapter
 import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.presentation.base.ui.BaseViewHolder
 import com.example.presentation.file.model.FileType
 import com.example.presentation.file.model.FileUiModel
 
@@ -18,7 +19,9 @@ class FilesAdapter(
         return when (viewType) {
             PDF_DOWNLOADED_VIEW -> PDFDownloadedViewHolder.create(parent)
             PDF_DOWNLOAD_VIEW -> PDFDownloadViewHolder.create(parent)
-            VIDEO_DOWNLOAD_VIEW ->VideoDownloadViewHolder.create(parent)
+            PDF_DOWNLOADING_VIEW -> PDFDownloadingViewHolder.create(parent)
+            VIDEO_DOWNLOAD_VIEW -> VideoDownloadViewHolder.create(parent)
+            VIDEO_DOWNLOADING_VIEW -> VideoDownloadingViewHolder.create(parent)
             else -> VideoDownloadedViewHolder.create(parent)
 
         }
@@ -26,7 +29,7 @@ class FilesAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = tutorials[position]
-        handleBinding(position, holder, item)
+        handleBinding(holder, item)
         handleItemClick(holder, position)
     }
 
@@ -35,7 +38,7 @@ class FilesAdapter(
         position: Int
     ) {
         when (getItemViewType(position)) {
-            PDF_DOWNLOAD_VIEW, VIDEO_DOWNLOAD_VIEW -> {
+            PDF_DOWNLOAD_VIEW, VIDEO_DOWNLOAD_VIEW, VIDEO_DOWNLOADING_VIEW -> {
                 holder.itemView.setOnClickListener {
                     tutorials[position]?.let {
                         downloadClickAction.invoke(it)
@@ -54,24 +57,10 @@ class FilesAdapter(
     }
 
     private fun handleBinding(
-        position: Int,
         holder: RecyclerView.ViewHolder,
         item: FileUiModel?
     ) {
-        when (getItemViewType(position)) {
-            PDF_DOWNLOADED_VIEW -> {
-                (holder as PDFDownloadedViewHolder).onBind(item)
-            }
-            PDF_DOWNLOAD_VIEW -> {
-                (holder as PDFDownloadViewHolder).onBind(item)
-            }
-            VIDEO_DOWNLOAD_VIEW -> {
-                (holder as VideoDownloadViewHolder).onBind(item)
-            }
-            else -> {
-                (holder as VideoDownloadedViewHolder).onBind(item)
-            }
-        }
+            (holder as BaseViewHolder<FileUiModel>).onBind(item)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -99,8 +88,10 @@ class FilesAdapter(
     companion object {
         const val PDF_DOWNLOADED_VIEW = 1
         const val PDF_DOWNLOAD_VIEW = 2
-        const val VIDEO_DOWNLOADED_VIEW = 3
-        const val VIDEO_DOWNLOAD_VIEW = 4
+        const val PDF_DOWNLOADING_VIEW = 3
+        const val VIDEO_DOWNLOADED_VIEW = 4
+        const val VIDEO_DOWNLOAD_VIEW = 5
+        const val VIDEO_DOWNLOADING_VIEW = 6
     }
 
 

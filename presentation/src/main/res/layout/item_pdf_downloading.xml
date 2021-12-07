@@ -34,7 +34,7 @@
             android:background="@color/gray55"
             android:padding="@dimen/dimen_4dp"
             android:textAlignment="center"
-            android:textColor="#FFFFFF"
+            android:textColor="?primaryTextColor"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
