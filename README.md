@@ -24,7 +24,7 @@ used different branches to implement and refactor the features to avoid conflict
 <img src="https://github.com/MosaabAhmedMohamed/Nagwa_Challenge/blob/master/nagwaChallenge.png" width="200" height="400"></a>
 
 ## Download
-[APK](https://github.com/MosaabAhmedMohamed/El-Menus_Challenge/blob/master/El-menus_challenge.apk)
+[APK](https://github.com/MosaabAhmedMohamed/Nagwa_Challenge/blob/master/Nagwa_Challenge.apk)
 
 
 ## Specifications
