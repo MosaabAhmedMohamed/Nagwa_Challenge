@@ -1,7 +1,6 @@
 package com.example.presentation.file.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,15 +49,8 @@ class FileFragment : BaseFragment() {
 
 
     override fun init() {
-        initRefresh()
         observeViewState()
         initItemsRv()
-    }
-
-    private fun initRefresh() {
-        binding.refreshSrl.init {
-            refreshItems()
-        }
     }
 
     private fun observeViewState() {
@@ -78,7 +70,6 @@ class FileFragment : BaseFragment() {
 
     private fun onDownloadFailed(file: FileUiModel) {
         showItemsViews(false)
-        binding.refreshSrl.stopRefresh()
         binding.progressRootView.gone()
         binding.errMessageRootView
             .downloadFailedState(getString(R.string.failed_to_download)
@@ -91,7 +82,6 @@ class FileFragment : BaseFragment() {
     private fun errorState(error: Throwable? = null) {
         binding.errMessageRootView.visible()
         showItemsViews(false)
-        binding.refreshSrl.stopRefresh()
         binding.progressRootView.gone()
     }
 
@@ -103,7 +93,6 @@ class FileFragment : BaseFragment() {
 
     private fun onItemsLoaded(result: List<FileUiModel>) {
         showItemsViews(true)
-        binding.refreshSrl.stopRefresh()
         binding.progressRootView.gone()
         binding.errMessageRootView.gone()
         itemListAdapter.setData(result.toMutableList())
@@ -162,10 +151,6 @@ class FileFragment : BaseFragment() {
         if (downloadUrl.isNotEmpty()) {
             fileViewModel.downloadFile(createFolderAndGetPath(), downloadUrl, name, itemId)
         }
-    }
-
-    private fun refreshItems() {
-        fileViewModel.getFiles(true)
     }
 
     private fun showItemsViews(show: Boolean) {

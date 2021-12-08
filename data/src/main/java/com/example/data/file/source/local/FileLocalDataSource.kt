@@ -1,8 +1,6 @@
 package com.example.data.file.source.local
 
 import android.content.Context
-import android.util.Log
-import androidx.room.Transaction
 import com.example.data.file.source.local.dao.FileDao
 import com.example.data.file.source.local.model.FileLocalModel
 import com.example.data.file.source.mapping.mapToDomain
@@ -25,10 +23,10 @@ class FileLocalDataSource @Inject constructor(
     private val gson: Gson
 ) {
 
-    fun getFiles(isForceRefresh: Boolean): Flowable<List<FileDomainModel>> {
+    fun getFiles(): Flowable<List<FileDomainModel>> {
         return fileDao.getFiles()
             .flatMap {
-                if (it.isEmpty() || isForceRefresh) {
+                if (it.isEmpty()) {
                     handleLoadingFromFileAndCaching()
                 }
                 Flowable.just(it.mapToDomain())

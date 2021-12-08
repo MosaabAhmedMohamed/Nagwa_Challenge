@@ -1,6 +1,7 @@
 package com.example.data.file.repository
 
 import android.app.DownloadManager
+import android.util.Log
 import com.example.data.file.source.local.FileLocalDataSource
 import com.example.data.file.source.mapping.mapToLocal
 import com.example.data.file.source.remote.FileDownloadDataSource
@@ -16,8 +17,8 @@ class FileRepositoryImpl @Inject constructor(
 ) : FileRepository {
 
 
-    override fun getFiles(isForceRefresh: Boolean): Flowable<List<FileDomainModel>> {
-        return fileLocalDataSource.getFiles(isForceRefresh)
+    override fun getFiles(): Flowable<List<FileDomainModel>> {
+        return fileLocalDataSource.getFiles()
     }
 
     override fun downloadFile(

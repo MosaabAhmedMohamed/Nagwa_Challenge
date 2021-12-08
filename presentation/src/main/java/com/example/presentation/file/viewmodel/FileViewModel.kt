@@ -1,7 +1,6 @@
 package com.example.presentation.file.viewmodel
 
 import android.app.DownloadManager
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.core.model.DownloadStatus
@@ -32,8 +31,8 @@ class FileViewModel @Inject constructor(
     private val filesViewStateLDPrivate by lazy { MutableLiveData<FilesViewState>() }
     val filesViewStateLD: LiveData<FilesViewState> get() = filesViewStateLDPrivate
 
-    fun getFiles(isForceRefresh: Boolean = false) {
-        getFilesUseCase.getFiles(isForceRefresh)
+    fun getFiles() {
+        getFilesUseCase.getFiles()
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
             .flatMap {
@@ -66,8 +65,8 @@ class FileViewModel @Inject constructor(
         }
     }
 
-    fun setDownloadStatusNON(file:FileUiModel){
-         updateFileUseCase.setDownloadStatusNON(file.mapToDomain())
+    fun setDownloadStatusNON(file: FileUiModel) {
+        updateFileUseCase.setDownloadStatusNON(file.mapToDomain())
     }
 
     fun downloadFile(
@@ -76,7 +75,7 @@ class FileViewModel @Inject constructor(
         name: String?,
         itemId: Int?
     ) {
-        updateDownloadStatus(DownloadStatus.PENDING, folderPath)
+        setDownloadStatusPENDING(folderPath)
         val downloadInfo = downloadFileUseCase.downloadFile(folderPath, downloadUrl, name)
         if (downloadInfo.first != null && downloadInfo.second != null) {
             updateDownloadStatus(DownloadStatus.DOWNLOADING, folderPath)
@@ -84,6 +83,11 @@ class FileViewModel @Inject constructor(
         } else {
             updateDownloadStatus(DownloadStatus.FAILED, folderPath)
         }
+    }
+
+    private fun setDownloadStatusPENDING(folderPath: String) {
+        if (fileSelectedItem?.downloadStatus != DownloadStatus.FAILED)
+            updateDownloadStatus(DownloadStatus.PENDING, folderPath)
     }
 
     private fun updateDownloadStatus(status: DownloadStatus, folderPath: String) {
@@ -130,7 +134,7 @@ class FileViewModel @Inject constructor(
     }
 
     init {
-        getFiles(false)
+        getFiles()
     }
 
 }

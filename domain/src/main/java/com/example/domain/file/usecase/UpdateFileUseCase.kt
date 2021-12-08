@@ -1,5 +1,6 @@
 package com.example.domain.file.usecase
 
+import android.util.Log
 import com.example.core.model.DownloadStatus
 import com.example.domain.file.model.FileDomainModel
 import com.example.domain.file.repository.FileRepository
@@ -35,6 +36,8 @@ class UpdateFileUseCase @Inject constructor(private val fileRepository: FileRepo
     }
 
     fun setDownloadStatusNON(file: FileDomainModel?) {
+        Log.d("testTAG", "updateFileDownloadStatus: setDownloadStatusNON")
+
         file?.let {
             it.setDownloadStatus(DownloadStatus.NON)
             it.downloadTriesCount = 0
