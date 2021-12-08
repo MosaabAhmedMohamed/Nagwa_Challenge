@@ -37,7 +37,6 @@ class FileViewModel @Inject constructor(
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
             .flatMap {
-                Log.d("testTAG", "checkFilesToBeDownloaded: get")
                 checkFilesToBeDownloaded(it.mapToUIModel())
                 Flowable.just(it)
             }
@@ -61,8 +60,14 @@ class FileViewModel @Inject constructor(
             if (it.downloadTriesCount < 3) {
                 fileSelectedItem = it
                 downloadFile(it.localPath!!, it.url!!, it.name, it.id)
+            } else {
+                filesViewStateLDPrivate.postValue(FilesViewState.onDownloadError(it))
             }
         }
+    }
+
+    fun setDownloadStatusNON(file:FileUiModel){
+         updateFileUseCase.setDownloadStatusNON(file.mapToDomain())
     }
 
     fun downloadFile(

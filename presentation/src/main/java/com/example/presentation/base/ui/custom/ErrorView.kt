@@ -50,6 +50,12 @@ class ErrorView : ConstraintLayout {
         this.findViewById<Button>(R.id.btn_retry).visibility(false)
     }
 
+    fun downloadFailedState(msg: String) {
+        visibility(true)
+        this.findViewById<TextView>(R.id.message_tv).text = msg
+        this.findViewById<Button>(R.id.btn_retry).text = context.getString(R.string.dismiss)
+    }
+
     fun setOnClickListener(onClick: () -> Unit) {
         this.findViewById<Button>(R.id.btn_retry).setOnClickListener {
             onClick.invoke()

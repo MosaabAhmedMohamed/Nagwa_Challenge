@@ -1,6 +1,5 @@
 package com.example.domain.file.usecase
 
-import android.util.Log
 import com.example.core.model.DownloadStatus
 import com.example.domain.file.model.FileDomainModel
 import com.example.domain.file.repository.FileRepository
@@ -14,7 +13,6 @@ class UpdateFileUseCase @Inject constructor(private val fileRepository: FileRepo
         status: DownloadStatus,
         folderPath: String
     ) {
-        Log.d("testTAG", "updateFileDownloadStatus: ${status} ")
         file?.let {
             it.setDownloadStatus(status)
             it.setFilePath(folderPath)
@@ -34,5 +32,13 @@ class UpdateFileUseCase @Inject constructor(private val fileRepository: FileRepo
     private fun FileDomainModel.setDownloadTriesCount() {
         if (downloadStatus == DownloadStatus.FAILED)
             downloadTriesCount += 1
+    }
+
+    fun setDownloadStatusNON(file: FileDomainModel?) {
+        file?.let {
+            it.setDownloadStatus(DownloadStatus.NON)
+            it.downloadTriesCount = 0
+            fileRepository.updateFileInLocal(file)
+        }
     }
 }

@@ -35,7 +35,7 @@
             android:padding="@dimen/dimen_4dp"
             android:textAlignment="center"
             android:textColor="?primaryTextColor"
-            android:textSize="18sp"
+            android:textSize="@dimen/dimen_14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

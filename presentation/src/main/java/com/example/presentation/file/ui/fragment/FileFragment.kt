@@ -1,11 +1,13 @@
 package com.example.presentation.file.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.presentation.R
 import com.example.presentation.base.ViewModelFactory
 import com.example.presentation.base.ui.BaseFragment
 import com.example.presentation.base.ui.ext.*
@@ -70,6 +72,19 @@ class FileFragment : BaseFragment() {
             FilesViewState.Loading -> loadingState()
             is FilesViewState.onError -> errorState(viewState.error)
             is FilesViewState.onSuccess -> onItemsLoaded(viewState.result)
+            is FilesViewState.onDownloadError -> onDownloadFailed(viewState.file)
+        }
+    }
+
+    private fun onDownloadFailed(file: FileUiModel) {
+        showItemsViews(false)
+        binding.refreshSrl.stopRefresh()
+        binding.progressRootView.gone()
+        binding.errMessageRootView
+            .downloadFailedState(getString(R.string.failed_to_download)
+            .plus(" ${file.name}"))
+        binding.errMessageRootView.setOnClickListener {
+            fileViewModel.setDownloadStatusNON(file)
         }
     }
 
@@ -95,7 +110,7 @@ class FileFragment : BaseFragment() {
     }
 
     private fun initItemsRv() {
-        binding.listRv.layoutManager = GridLayoutManager(requireContext(),2)
+        binding.listRv.layoutManager = GridLayoutManager(requireContext(),3)
         binding.listRv.adapter = itemListAdapter
     }
 
@@ -155,13 +170,6 @@ class FileFragment : BaseFragment() {
 
     private fun showItemsViews(show: Boolean) {
         binding.listRv.visibility(show)
-    }
-
-    override fun onViewClicked() {
-        super.onViewClicked()
-        binding.errMessageRootView.setOnClickListener {
-            refreshItems()
-        }
     }
 
 }
